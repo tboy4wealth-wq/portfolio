@@ -13,13 +13,7 @@ connectDB();
 
 const app = express();
 
-app.use(cors({
-    origin: [
-        "https://portfolio-six-sandy-89.vercel.app",
-        "https://portfolio-99aq.vercel.app"
-    ],
-    credentials: true
-}));
+app.use(cors());
 
 app.use(express.json());
 

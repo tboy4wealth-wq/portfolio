@@ -1,15 +1,15 @@
 // Admin Dashboard Logic
 const API_URL =
-    window.location.hostname === "localhost"
-        ? "http://localhost:5000/api"
-        : "https://portfolio-wu0n.onrender.com/api";
+  window.location.hostname === "localhost"
+    ? "http://localhost:5000/api"
+    : "https://portfolio-wu0n.onrender.com/api";
 
 async function verifyAdmin() {
 
   const token = localStorage.getItem("token");
 
-  if (!token) {
-    window.location.replace("/admin/login.html");
+  if (token && token.trim() !== "") {
+    window.location.replace("/dashboard.html");
     return;
   }
 
@@ -37,7 +37,7 @@ async function verifyAdmin() {
     localStorage.removeItem("token");
     localStorage.removeItem("admin");
 
-    window.location.replace("/admin/login.html");
+    window.location.replace("/login.html");
   }
 }
 
@@ -57,7 +57,7 @@ async function apiFetch(url, options = {}) {
     localStorage.removeItem("token");
     localStorage.removeItem("admin");
 
-    window.location.replace("/admin/login.html");
+    window.location.replace("/login.html");
 
     return null;
   }
@@ -441,38 +441,38 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Archive message in modal
   archiveBtn.addEventListener("click", async () => {
 
-  if (!currentViewingId) return;
+    if (!currentViewingId) return;
 
-  try {
+    try {
 
-    const response = await apiFetch(
-      `${API_URL}/messages/${currentViewingId}/archive`,
-      {
-        method: "PUT"
+      const response = await apiFetch(
+        `${API_URL}/messages/${currentViewingId}/archive`,
+        {
+          method: "PUT"
+        }
+      );
+
+      const data = await response.json();
+
+      if (!data.success) {
+        throw new Error(data.message);
       }
-    );
 
-    const data = await response.json();
+      showToast("Message archived");
 
-    if (!data.success) {
-      throw new Error(data.message);
+      closeModalFn();
+
+      await loadStats();
+
+      await loadMessages();
+
+    } catch (error) {
+
+      showToast("Unable to archive message", "error");
+
     }
 
-    showToast("Message archived");
-
-    closeModalFn();
-
-    await loadStats();
-
-    await loadMessages();
-
-  } catch (error) {
-
-    showToast("Unable to archive message", "error");
-
-  }
-
-});
+  });
 
   // Search input
   searchInput.addEventListener('input', debounce(applyFilters, 300));
@@ -538,7 +538,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       localStorage.removeItem("admin");
       // localStorage.removeItem("adminEmail");
 
-      window.location.replace("/admin/login.html");
+      window.location.replace("/login.html");
     });
   });
 

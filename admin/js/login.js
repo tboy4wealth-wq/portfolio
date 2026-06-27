@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const API_URL =
     window.location.hostname === "localhost"
-        ? "http://localhost:5000/api"
-        : "https://portfolio-wu0n.onrender.com/api";
+      ? "http://localhost:5000/api"
+      : "https://portfolio-wu0n.onrender.com/api";
 
   // ================================
   // Redirect if already logged in
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("token");
 
   if (token && token.trim() !== "") {
-    window.location.replace("/admin/dashboard.html");
+    window.location.replace("/dashboard.html");
   }
 
   // ================================
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
         showConfirmButton: false,
       });
 
-      window.location.replace("/admin/dashboard.html");
+      window.location.replace("/dashboard.html");
 
     } catch (error) {
 

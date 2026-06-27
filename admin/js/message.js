@@ -8,11 +8,10 @@ async function verifyAdmin() {
 
     const token = localStorage.getItem("token");
 
-    if (!token) {
-        window.location.replace("/admin/login.html");
+    if (token && token.trim() !== "") {
+        window.location.replace("/dashboard.html");
         return;
     }
-
     try {
 
         const response = await fetch(
@@ -37,7 +36,7 @@ async function verifyAdmin() {
         localStorage.removeItem("token");
         localStorage.removeItem("admin");
 
-        window.location.replace("/admin/login.html");
+        window.location.replace("/login.html");
     }
 }
 
@@ -713,7 +712,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 localStorage.removeItem("token");
                 localStorage.removeItem("admin");
 
-                window.location.replace("/admin/login.html");
+                window.location.replace("/login.html");
             }
         });
     });
