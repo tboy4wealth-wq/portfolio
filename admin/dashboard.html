@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Treasure Agbonaye</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+  <div class="dashboard">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">T</div>
+        <span class="logo-text">Treasure</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="/admin/dashboard.html" class="active">
+          <i class="fas fa-chart-pie"></i> Dashboard
+        </a>
+        <a href="/admin/message.html">
+          <i class="fas fa-envelope"></i> Messages
+          <span class="badge" id="newMessagesBadge">0</span>
+        </a>
+        <a href="/admin/settings.html">
+          <i class="fas fa-cog"></i> Settings
+        </a>
+        <a href="#" id="logoutBtn">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <div class="top-bar-left">
+          <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h2>Dashboard</h2>
+        </div>
+        <div class="top-bar-right">
+          <button class="theme-toggle" id="dashboardThemeToggle">
+            <i class="fas fa-moon"></i>
+          </button>
+          <div class="user-profile">
+            <img src="https://ui-avatars.com/api/?name=Treasure+Agbonaye&background=D32F2F&color=fff&size=40"
+              alt="Admin">
+            <span>Admin</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Statistics Cards -->
+      <section class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Total Messages</h3>
+            <p class="stat-number" id="totalMessages">0</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon new">
+            <i class="fas fa-envelope-open"></i>
+          </div>
+          <div class="stat-info">
+            <h3>New Messages</h3>
+            <p class="stat-number" id="newMessages">0</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon read">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Read Messages</h3>
+            <p class="stat-number" id="readMessages">0</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon archived">
+            <i class="fas fa-archive"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Archived</h3>
+            <p class="stat-number" id="archivedMessages">0</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Search and Table -->
+      <section class="table-section">
+        <div class="table-header">
+          <h3>Messages</h3>
+          <div class="search-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search by Name, Email or Subject..." class="search-input">
+          </div>
+          <div class="filter-actions">
+            <select id="filterStatus" class="filter-select">
+              <option value="all">All Messages</option>
+              <option value="new">New</option>
+              <option value="read">Read</option>
+              <option value="archived">Archived</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="message-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="messagesBody">
+              <!-- Messages rendered by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-footer">
+          <p id="messageCount">Showing 0 messages</p>
+          <div class="pagination">
+            <button class="page-btn" id="prevPage"><i class="fas fa-chevron-left"></i></button>
+            <span id="pageInfo">Page 1 of 1</span>
+            <button class="page-btn" id="nextPage"><i class="fas fa-chevron-right"></i></button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- View Message Modal -->
+  <div class="modal" id="viewModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Message Details</h3>
+        <button class="modal-close" id="closeModal">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Message content rendered by JavaScript -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn-action mark-read" id="markReadBtn">
+          <i class="fas fa-check"></i> Mark as Read
+        </button>
+        <button class="btn-action delete" id="deleteBtn">
+          <i class="fas fa-trash"></i> Delete
+        </button>
+        <button id="archiveBtn" class="btn-action warning">
+          Archive
+        </button>
+        <button class="btn-action close" id="closeModalBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+
+</html>

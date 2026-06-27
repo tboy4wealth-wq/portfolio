@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages | Portfolio Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="css/message.css">
+</head>
+
+<body>
+  <!-- ===================== -->
+  <!-- Loading Screen -->
+  <!-- ===================== -->
+  <div id="loadingScreen">
+    <div class="loader"></div>
+    <p>Loading Messages...</p>
+  </div>
+
+  <div class="dashboard">
+    <!-- ===================== -->
+    <!-- Sidebar -->
+    <!-- ===================== -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">T</div>
+        <h2>Treasure</h2>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li>
+          <a href="dashboard.html">
+            <i class="fas fa-chart-line"></i>
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="messages.html" class="active">
+            <i class="fas fa-inbox"></i>
+            Messages
+            <span id="newMessagesBadge">0</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" id="archivedLink">
+            <i class="fas fa-box-archive"></i>
+            Archived
+          </a>
+        </li>
+        <li>
+          <a href="settings.html">
+            <i class="fas fa-gear"></i>
+            Settings
+          </a>
+        </li>
+      </ul>
+
+      <button id="logoutBtn">
+        <i class="fas fa-right-from-bracket"></i>
+        Logout
+      </button>
+    </aside>
+
+    <!-- ===================== -->
+    <!-- Main Content -->
+    <!-- ===================== -->
+    <main class="content">
+      <!-- ===================== -->
+      <!-- Top Bar -->
+      <!-- ===================== -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div>
+            <h1>Messages</h1>
+            <p id="today"></p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <button id="refreshBtn" title="Refresh">
+            <i class="fas fa-rotate"></i>
+          </button>
+          <button id="themeBtn" title="Toggle Theme">
+            <i class="fas fa-moon"></i>
+          </button>
+          <div class="admin-info">
+            <img src="https://ui-avatars.com/api/?name=Treasure+Agbonaye&background=D32F2F&color=fff" alt="Admin">
+            <div>
+              <h4>Admin</h4>
+              <small>treasure@example.com</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===================== -->
+      <!-- Stats Bar -->
+      <!-- ===================== -->
+      <section class="stats-bar">
+        <div class="stat-item" data-filter="all">
+          <span class="stat-label">All</span>
+          <span class="stat-number" id="totalCount">0</span>
+        </div>
+        <div class="stat-item unread" data-filter="unread">
+          <span class="stat-label">Unread</span>
+          <span class="stat-number" id="unreadCount">0</span>
+        </div>
+        <div class="stat-item read" data-filter="read">
+          <span class="stat-label">Read</span>
+          <span class="stat-number" id="readCount">0</span>
+        </div>
+        <div class="stat-item archived" data-filter="archived">
+          <span class="stat-label">Archived</span>
+          <span class="stat-number" id="archivedCount">0</span>
+        </div>
+      </section>
+
+      <!-- ===================== -->
+      <!-- Toolbar -->
+      <!-- ===================== -->
+      <section class="toolbar">
+        <div class="toolbar-left">
+          <div class="search-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search by name, email, or subject...">
+          </div>
+          <select id="filterSelect">
+            <option value="all">All Messages</option>
+            <option value="unread">Unread</option>
+            <option value="read">Read</option>
+            <option value="archived">Archived</option>
+          </select>
+        </div>
+        <div class="toolbar-right">
+          <button id="bulkSelectBtn" title="Select All">
+            <i class="fas fa-check-double"></i>
+          </button>
+          <button id="bulkDeleteBtn" title="Delete Selected" disabled>
+            <i class="fas fa-trash"></i>
+          </button>
+          <button id="bulkArchiveBtn" title="Archive Selected" disabled>
+            <i class="fas fa-box-archive"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- ===================== -->
+      <!-- Messages List -->
+      <!-- ===================== -->
+      <section class="messages-container">
+        <div class="messages-list" id="messagesList">
+          <!-- Messages rendered by JavaScript -->
+        </div>
+
+        <div id="emptyState" class="empty-state">
+          <i class="fas fa-inbox"></i>
+          <h2>No Messages Found</h2>
+          <p>Messages will appear here when visitors contact you.</p>
+        </div>
+      </section>
+
+      <!-- ===================== -->
+      <!-- Pagination -->
+      <!-- ===================== -->
+      <section class="pagination">
+        <button id="prevPage" disabled>
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <span id="pageInfo">Page 1 of 1</span>
+        <button id="nextPage" disabled>
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </section>
+    </main>
+  </div>
+
+  <!-- ===================== -->
+  <!-- Message Detail Modal -->
+  <!-- ===================== -->
+  <div id="messageModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Message Details</h2>
+        <button id="closeModal">&times;</button>
+      </div>
+
+      <div id="modalBody">
+        <!-- Dynamic content -->
+      </div>
+
+      <div class="modal-footer">
+        <button id="markReadBtn">
+          <i class="fas fa-check"></i>
+          Mark Read
+        </button>
+        <button id="archiveBtn">
+          <i class="fas fa-box-archive"></i>
+          Archive
+        </button>
+        <button id="restoreBtn" style="display:none;">
+          <i class="fas fa-rotate-left"></i>
+          Restore
+        </button>
+        <button id="deleteBtn">
+          <i class="fas fa-trash"></i>
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== -->
+  <!-- Toast Container -->
+  <!-- ===================== -->
+  <div id="toastContainer"></div>
+
+  <!-- ===================== -->
+  <!-- Sidebar Overlay -->
+  <!-- ===================== -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/message.js"></script>
+</body>
+</html>
