@@ -1,4 +1,9 @@
 // Admin Dashboard Logic
+const API_URL =
+    window.location.hostname === "localhost"
+        ? "http://localhost:5000/api"
+        : "https://portfolio-wu0n.onrender.com/api";
+
 async function verifyAdmin() {
 
   const token = localStorage.getItem("token");
@@ -11,7 +16,7 @@ async function verifyAdmin() {
   try {
 
     const response = await fetch(
-      "http://localhost:5000/api/auth/me",
+      `${API_URL}/auth/me`,
       {
         headers: {
           Authorization: `Bearer ${token}`
@@ -103,7 +108,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
       const response = await apiFetch(
-        "http://localhost:5000/api/messages"
+        `${API_URL}/messages`
       );
 
       if (!response) return;
@@ -160,7 +165,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   async function loadStats() {
     try {
       const response = await apiFetch(
-        "http://localhost:5000/api/messages/stats"
+        `${API_URL}/messages/stats`
       );
 
       if (!response) return;
@@ -263,7 +268,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
 
       const response = await apiFetch(
-        `http://localhost:5000/api/messages/${id}`
+        `${API_URL}/messages/${id}`
       );
 
       const data = await response.json();
@@ -343,7 +348,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
 
       const response = await apiFetch(
-        `http://localhost:5000/api/messages/${currentViewingId}/read`,
+        `${API_URL}/messages/${currentViewingId}/read`,
         {
           method: "PUT"
         }
@@ -396,7 +401,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
 
       const response = await apiFetch(
-        `http://localhost:5000/api/messages/${id}`,
+        `${API_URL}/messages/${id}`,
         {
           method: "DELETE"
         }
@@ -441,7 +446,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
 
     const response = await apiFetch(
-      `http://localhost:5000/api/messages/${currentViewingId}/archive`,
+      `${API_URL}/messages/${currentViewingId}/archive`,
       {
         method: "PUT"
       }

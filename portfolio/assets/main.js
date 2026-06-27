@@ -2,6 +2,10 @@
 const themeToggle = document.getElementById('themeToggle');
 const themeIcon = themeToggle.querySelector('i');
 const body = document.body;
+const API_URL =
+    window.location.hostname === "localhost"
+        ? "http://localhost:5000/api"
+        : "https://portfolio-wu0n.onrender.com/api";
 
 themeToggle.addEventListener('click', () => {
   if (body.classList.contains('dark-theme')) {
@@ -157,7 +161,7 @@ contactForm.addEventListener("submit", async (e) => {
 
   try {
 
-    const response = await fetch("http://localhost:5000/api/contact", {
+    const response = await fetch(`${API_URL}/contact`, {
 
       method: "POST",
 

@@ -5,6 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const errorText = document.getElementById("errorText");
   const rememberCheck = document.getElementById("remember");
 
+  const API_URL =
+    window.location.hostname === "localhost"
+        ? "http://localhost:5000/api"
+        : "https://portfolio-wu0n.onrender.com/api";
+
   // ================================
   // Redirect if already logged in
   // ================================
@@ -58,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/auth/login",
+        `${API_URL}/auth/login`,
         {
           method: "POST",
           headers: {

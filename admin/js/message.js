@@ -1,3 +1,8 @@
+const API_URL =
+    window.location.hostname === "localhost"
+        ? "http://localhost:5000/api"
+        : "https://portfolio-wu0n.onrender.com/api";
+
 // Admin Dashboard Logic
 async function verifyAdmin() {
 
@@ -11,7 +16,7 @@ async function verifyAdmin() {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/auth/me",
+            `${API_URL}/auth/me`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -137,7 +142,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // ==========================================
     async function loadMessages() {
         try {
-            const response = await apiFetch("http://localhost:5000/api/messages");
+            const response = await apiFetch(`${API_URL}/messages`);
 
             if (!response) return;
 
@@ -184,7 +189,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
 
             const response = await apiFetch(
-                "http://localhost:5000/api/messages/stats"
+                `${API_URL}/messages/stats`
             );
 
             if (!response) return;
@@ -321,7 +326,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (msg.status === 'new') {
             await apiFetch(
-                `http://localhost:5000/api/messages/${id}/read`,
+                `${API_URL}/messages/${id}/read`,
                 {
                     method: "PATCH"
                 }
@@ -388,7 +393,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
 
             const response = await apiFetch(
-                `http://localhost:5000/api/messages/${id}/archive`,
+                `${API_URL}/messages/${id}/archive`,
                 {
                     method: "PATCH"
                 }
@@ -418,7 +423,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
 
             const response = await apiFetch(
-                `http://localhost:5000/api/messages/${id}/restore`,
+                `${API_URL}/messages/${id}/restore`,
                 {
                     method: "PATCH"
                 }
@@ -470,7 +475,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
 
             const response = await apiFetch(
-                `http://localhost:5000/api/messages/${id}`,
+                `${API_URL}/messages/${id}`,
                 {
                     method: "DELETE"
                 }
